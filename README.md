@@ -1,2 +1,2 @@
 # django-web-app
-devops cyvle for django project
+devops cycle for django project
