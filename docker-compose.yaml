@@ -5,13 +5,11 @@ services:
     ports:
       - "3307:3306"
     environment:
-      - MYSQL_DATABASE='mydatabase'
-      - MYSQL_USER='root'
-      - MYSQL_PASSWORD='some_password'
-      - MYSQL_ROOT_PASSWORD='some_password'
-      - MYSQL_HOST=''
+      - MYSQL_DATABASE=django_lms
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=admin
+      - MYSQL_ROOT_PASSWORD=admin
     volumes:
-      - /tmp/app/mysqld:/var/run/mysqld
       - ./db:/var/lib/mysql
   web:
     build: 
@@ -22,7 +20,6 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
-      - /tmp/app/mysqld:/run/mysqld
     depends_on:
       - db
     links:
