@@ -13,6 +13,7 @@ graphene-file-upload==1.2.2
 graphql-core==2.3.2
 graphql-relay==2.0.1
 mysql-connector-python==8.0.33
+mysqlclient
 promise==2.3
 pytz==2020.4
 Rx==1.6.1
