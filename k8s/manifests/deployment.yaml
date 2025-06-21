@@ -1,0 +1,83 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8
+          env:
+            - name: MYSQL_DATABASE
+              value: "django_lms"
+            - name: MYSQL_ROOT_PASSWORD
+              value: "admin"
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-data
+          emptyDir: {}  # Use PVC for real persistence
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          ports:
+            - containerPort: 6379
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-web-app
+  template:
+    metadata:
+      labels:
+        app: django-web-app
+    spec:
+      containers:
+        - name: django-web-app
+          image: tyagipriyanshi211/django-web-app:v1
+          command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DB_HOST
+              value: "mysql"
+            - name: DB_NAME
+              value: "django_lms"
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASSWORD
+              value: "admin"
+            - name: REDIS_HOST
+              value: "redis"

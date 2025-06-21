@@ -33,3 +33,6 @@ nosetests.xml
 coverage.xml 
 *.cover 
 .hypothesis/ 
+
+db/
+
