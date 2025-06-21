@@ -15,6 +15,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: go-web-app
+            name: django-web-app
             port:
               number: 8000
