@@ -97,7 +97,7 @@ DATABASES = {
         'NAME': 'django_lms',
         'USER': 'root',
         'PASSWORD': 'admin',
-        'HOST': 'db',
+        'HOST': 'mysql',
         'PORT': '3306',
     }
 }
